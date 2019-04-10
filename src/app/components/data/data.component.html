@@ -1,0 +1,78 @@
+<h4>Formularios <small>data</small></h4>
+<hr>
+<form [formGroup]="form" (ngSubmit)="guardarCambios()" novalidate="novalidate">
+
+    <div formGroupName="nombreCompleto">
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [ngClass]="{'is-invalid': !form.controls['nombreCompleto'].controls['nombre'].valid  
+                                                                                                                  && form.controls['nombreCompleto'].controls['nombre'].touched}">
+                <div *ngIf="form.get('nombreCompleto.nombre').errors?.required" class="invalid-feedback">Este campo es requerido</div>
+                <div *ngIf="form.get('nombreCompleto.nombre').errors?.minlength" class="invalid-feedback">El correo no cumple con el formato correcto</div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [ngClass]="{'is-invalid': !form.controls['nombreCompleto'].controls['apellido'].valid 
+                                                                                                                                    && form.controls['nombreCompleto'].controls['apellido'].touched}">
+                <div *ngIf="form.get('nombreCompleto.apellido').errors?.required" class="invalid-feedback">Este campo es requerido</div>
+                <div *ngIf="form.get('nombreCompleto.apellido').errors?.minlength" class="invalid-feedback">El correo no cumple con el formato correcto</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+            <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo" [ngClass]="{'is-invalid': !form.controls['correo'].valid && form.controls['correo'].touched}">
+            <div *ngIf="form.controls['correo'].errors?.required" class="invalid-feedback">Este campo es requerido</div>
+            <div *ngIf="form.get('correo').errors?.pattern" class="invalid-feedback">El correo no cumple con el formato correcto</div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="col-md-8" formArrayName="pasatiempos">
+            <input *ngFor="let pasatiempo of form.controls['pasatiempos'].controls; let i=index" class="form-control" type="type" placeholder="pasatiempo" [formControlName]="i" [ngClass]="{'is-invalid': !form.controls['pasatiempos'].valid && form.controls['pasatiempos'].touched}">
+        </div>
+        <button (click)="agregarPasatiempo()" type="button" class="btn btn-success">+</button>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" placeholder="username" formControlName="username" [ngClass]="{'is-invalid': !form.controls['password2'].valid && form.controls['password2'].touched}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="password" formControlName="password1" [ngClass]="{'is-invalid': !form.controls['password1'].valid && form.controls['password1'].touched}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="password" formControlName="password2" [ngClass]="{'is-invalid': !form.controls['password2'].valid && form.controls['password2'].touched}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+        </div>
+    </div>
+    {{form.valid}}
+    <br> {{form.status}}
+
+</form>
